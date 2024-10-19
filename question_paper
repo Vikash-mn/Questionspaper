@@ -1,0 +1,94 @@
+import random
+
+questions = {
+    1: {
+        "question": "What is the capital of France?",
+        "options": ["London", "Paris", "Rome", "Madrid"],
+        "correct_answer": "2"
+    },
+    2: {
+        "question": "Who wrote 'To Kill a Mockingbird'?",
+        "options": ["Ernest Hemingway", "Harper Lee", "Mark Twain", "J.K. Rowling"],
+        "correct_answer": "2"
+    },
+    3: {
+        "question": "What is the largest internal organ in the human body?",
+        "options": ["Lungs", "Heart", "Kidneys", "Liver"],
+        "correct_answer": "4"
+    },
+    4: {
+        "question": "What is the percentage of the Earth covered by water?",
+        "options": ["51%", "61%", "71%", "81%"],
+        "correct_answer": "3"
+    },
+    5: {
+        "question": "What was the name of Drake’s 2023 album?",
+        "options": ["Take Care", "Scorpion", "For All the Dogs", "Views"],
+        "correct_answer": "3"
+    },
+    6: {
+        "question": "Which of the following British presenters never presented ‘Strictly Come Dancing’?",
+        "options": ["Claudia Winkleman", "Tess Daly", "Andrea Hamilton", "Stacey Dooley"],
+        "correct_answer": "3"
+    },
+    7: {
+        "question": "Which country is the band AC/DC from?",
+        "options": ["New Zealand", "UK", "USA", "Australia"],
+        "correct_answer": "4"
+    },
+    8: {
+        "question": "When was the Cuban Missile Crisis?",
+        "options": ["1962", "1972", "1982", "1992"],
+        "correct_answer": "1"
+    },
+    9: {
+        "question": "What is the atomic number of Hydrogen?",
+        "options": ["1", "2", "3", "4"],
+        "correct_answer": "1"
+    },
+    10: {
+        "question": "Which of the following is not a Japanese dish?",
+        "options": ["Sushi", "Ramen", "Babi guling", "Udon"],
+        "correct_answer": "3"
+    },
+
+##add more questions 
+}
+
+used_questions = set()
+count = 0
+wrong_answers = []
+
+for i in range(5):
+    question_number = random.randint(1, len(questions))
+    while question_number in used_questions:
+        question_number = random.randint(1, len(questions))
+
+    used_questions.add(question_number)
+    selected_question = questions[question_number]
+    
+    print(f"Q{i+1}) {selected_question['question']}")
+    for j, option in enumerate(selected_question["options"], start=1):
+        print(f"{j}) {option}")
+
+    user_answer = input("Enter your answer in the form of 1 to 4: ")
+    
+    if user_answer == selected_question["correct_answer"]:
+        count += 1
+    else:
+        wrong_answers.append({
+            "question": selected_question["question"],
+            "options": selected_question["options"],
+            "correct_answer": selected_question["options"][int(selected_question["correct_answer"]) - 1],
+            "user_answer": selected_question["options"][int(user_answer) - 1] if user_answer.isdigit() and 1 <= int(user_answer) <= 4 else "Invalid"
+        })
+    print("------------------------------------------------------------------")
+
+print("Your total marks are: ", count)
+if wrong_answers:
+    print("Your wrong answers:")
+    for wa in wrong_answers:
+        print(f"Question: {wa['question']}")
+        print(f"Options: {wa['options']}")
+        print(f"Your Answer: {wa['user_answer']}")
+        print(f"Correct Answer: {wa['correct_answer']}")
